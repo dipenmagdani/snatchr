@@ -10,6 +10,8 @@ import { DownloadDialog } from "@/components/download-dialog";
 import { FaYoutube, FaMusic } from "react-icons/fa";
 import { motion } from "motion/react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import { FallingIconsBackground } from "@/components/ui/falling-icons-background";
+import { Spotlight } from "@/components/ui/spotlight";
 
 export function HeroSection() {
   const [url, setUrl] = useState("");
@@ -25,9 +27,15 @@ export function HeroSection() {
 
   return (
     <section className="relative py-20 overflow-hidden min-h-screen flex flex-col justify-center ">
-      {/* <BackgroundGrid />
-      <BackgroundLines /> */}
-      <BackgroundBeams />
+      {/* <BackgroundBeams /> */}
+    <div className="absolute inset-0">
+        <BackgroundBeams />
+        <FallingIconsBackground />
+      </div>
+      <Spotlight
+        className="top-0 left-0 md:left-60 md:-top-20"
+        fill="hsl(var(--primary))"
+      />
 
       <Container className="relative z-10">
         <motion.div
@@ -42,17 +50,23 @@ export function HeroSection() {
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
-            Download from{" "}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter flex flex-col">
+            Download high-quality{" "}
+            <span>
             <Typewriter
-              words={["YouTube", "JioSaavn"]}
+              words={["videos", "music"]}
               className="bg-gradient-to-r from-red-500 to-purple-600 dark:from-red-400 dark:to-purple-500 bg-clip-text text-transparent font-extrabold"
+              loop={true}
+              typingSpeed={100}
+              deletingSpeed={100}
             />
+            from YouTube
+            </span>
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A fast, free, and easy way to download high-quality videos and music
-            from YouTube and JioSaavn.
+            A fast, free, and easy way to download high-quality videos and music from
+            YouTube.
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
@@ -65,15 +79,7 @@ export function HeroSection() {
               <FaYoutube className="h-5 w-5" />
               YouTube
             </Button>
-            <Button
-              variant={activeTab === "jiosaavn" ? "default" : "outline"}
-              size="lg"
-              onClick={() => setActiveTab("jiosaavn")}
-              className="gap-2"
-            >
-              <FaMusic className="h-5 w-5" />
-              JioSaavn
-            </Button>
+          
           </div>
 
           <form
@@ -83,9 +89,7 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Input
                 type="text"
-                placeholder={`Paste ${
-                  activeTab === "youtube" ? "YouTube" : "JioSaavn"
-                } URL here...`}
+                placeholder={`Paste YouTube URL here...`}
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 className="h-12 text-base"
